@@ -1,0 +1,23 @@
+<h2>Municipalities</h2>
+
+<% @municipalities.each do |mun| %>
+  <% if mun.geom %>
+    <p>
+      <input type="checkbox" name="<%= dom_id mun %>" id="<%= dom_id mun %>" data-polygons="<%= j @polygons[mun.id].to_json %>" data-title="<%= mun.name %>" class="mun">
+      <label for="<%= dom_id mun %>" class="cursor-pointer">
+        <%= mun.name %>
+      </label>
+    </p>
+  <% else %>
+    <p><%= mun.name %> - nogeom</p>
+  <% end %>
+
+<% end %>
+
+<script type="text/javascript">
+  google.maps.event.addDomListener(window, 'load', function () {
+    Cartograph.municipalities = new Cartograph.MapPolygons($("input.mun"));
+  });
+</script>
+
+

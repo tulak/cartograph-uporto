@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'main/hospitals', as: :hospitals
+  get 'main/municipalities', as: :municipalities
+  get 'main/pubs', as: :pubs
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

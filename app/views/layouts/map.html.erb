@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cartograph</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application' %>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDj7JOz1NfEC0h-a5Dhf84Ug8GxRqPJPPY"></script>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<!-- header -->
+<div id="top-nav" class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Cartograph</a>
+    </div>
+
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><%= link_to "Pubs", pubs_path %></li>
+        <li><%= link_to "Hospitals", hospitals_path %></li>
+        <li><%= link_to "Municipalities", municipalities_path %></li>
+      </ul>
+    </div>
+  </div>
+  <!-- /container -->
+</div>
+
+<div class="left-col">
+  <div class="content">
+    <%= yield %>
+  </div>
+
+</div>
+<div class="right-col">
+  <div class="map-container">
+    <div id="map-canvas"></div>
+  </div>
+</div>
+
+</body>
+</html>

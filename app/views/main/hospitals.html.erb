@@ -1,0 +1,22 @@
+<h2>Hospitals</h2>
+<% @hospitals.each do |pub| %>
+  <% if pub.geom %>
+    <p>
+      <input type="checkbox" name="<%= dom_id pub %>" id="<%= dom_id pub %>" data-lat="<%= pub.ggeom.y %>" data-lng="<%= pub.ggeom.x %>" data-title="<%= pub.name %>" class="pub">
+      <label for="<%= dom_id pub %>" class="cursor-pointer">
+        <%= pub.name %>
+      </label>
+    </p>
+  <% else %>
+    <p><%= pub.name %> - nogeom</p>
+  <% end %>
+
+<% end %>
+
+<script type="text/javascript">
+  google.maps.event.addDomListener(window, 'load', function () {
+    Cartograph.pubs = new Cartograph.Pubs($("input.pub"))
+  });
+</script>
+
+
