@@ -1,8 +1,9 @@
 class Cartograph.MapPolygon
-  constructor: (id, title, polygons_data) ->
+  constructor: (id, title, polygons_data, party) ->
     @id = id
     @title = title
     @polygons_data = $(polygons_data)
+    @party = party
     @polygons = $([])
 
   show: ->
@@ -21,18 +22,28 @@ class Cartograph.MapPolygon
 
     Cartograph.map.fitBounds(bounds)
 
+  color: () ->
+    if @party
+      switch @party
+        when "green" then '#00FF00'
+        when "liberal" then '#0000FF'
+        when "unity" then '#FFE90D'
+        when "ndp" then '#C1001B'
+    else
+      '#FF0000'
+
   render: ->
-    return unless @polygons.empty()
+    return if @polygons.length > 0
     @polygons_data.each (_, polygon) =>
       paths = polygon.map (line) ->
         line.map (point) -> new google.maps.LatLng(point[0], point[1])
 
       polygon = new google.maps.Polygon
         paths: paths
-        strokeColor: '#00FF00'
+        strokeColor: @color()
         strokeOpacity: 0.8
         strokeWeight: 2
-        fillColor: '#00FF00'
+        fillColor: @color()
         fillOpacity: 0.35
 
       infowindow = new google.maps.InfoWindow

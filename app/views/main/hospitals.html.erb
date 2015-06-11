@@ -1,4 +1,7 @@
 <h2>Hospitals</h2>
+
+<a class="btn btn-primary show-all">Show All</a>
+
 <% @hospitals.each do |pub| %>
   <% if pub.geom %>
     <p>
@@ -15,7 +18,12 @@
 
 <script type="text/javascript">
   google.maps.event.addDomListener(window, 'load', function () {
-    Cartograph.pubs = new Cartograph.Pubs($("input.pub"))
+    Cartograph.pubs = new Cartograph.MapPoints($("input.pub"))
+    $(".show-all").first().click(function(){
+      Cartograph.pubs.renderAll();
+      Cartograph.pubs.showAll();
+      Cartograph.map.fitBounds(Cartograph.pubs.bounds() )
+    });
   });
 </script>
 

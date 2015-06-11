@@ -46,3 +46,14 @@
 }
 
 .cursor-pointer { cursor: pointer; }
+
+.color-tile {
+  display: inline-block;
+  width: 50px;
+  height: 20px;
+
+  &.liberal { background-color: #0000FF; }
+  &.green { background-color: #00FF00; }
+  &.unity { background-color: #FFE90D; }
+  &.ndp { background-color: #C1001B; }
+}

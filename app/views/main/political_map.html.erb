@@ -1,0 +1,46 @@
+<h2>Political Map - Ridings</h2>
+
+
+<div>
+  <p>
+    Liberal
+    <span class="color-tile liberal">&nbsp;</span>
+  </p>
+  <p>
+    NDP
+    <span class="color-tile ndp"></span>
+  </p>
+  <p>
+    Green
+    <span class="color-tile green"></span>
+  </p>
+  <p>
+    Unity
+    <span class="color-tile unity"></span>
+  </p>
+</div>
+
+<% @regions.each do |mun| %>
+  <p>
+    <input type="checkbox" name="<%= mun.region.parameterize %>"
+           id="<%= mun.region.parameterize %>"
+           data-polygons="<%= j @polygons[mun.region.parameterize].to_json %>"
+           data-title="<%= mun.region %>"
+           data-party="<%= @parties[mun.region.parameterize] %>"
+           class="mun">
+    <label for="<%= mun.region.parameterize %>" class="cursor-pointer">
+      <%= mun.region %>
+    </label>
+  </p>
+
+<% end %>
+
+<script type="text/javascript">
+  google.maps.event.addDomListener(window, 'load', function () {
+    Cartograph.municipalities = new Cartograph.MapPolygons($("input.mun"));
+    Cartograph.municipalities.renderAll();
+    Cartograph.municipalities.showAll();
+  });
+</script>
+
+

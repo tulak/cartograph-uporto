@@ -1,0 +1,28 @@
+<h2>Nearby Places</h2>
+
+<div>
+  <%= form_for @nearby_places, url: nearby_places_path(format: :json), remote: true, method: :get do |f| %>
+    <%= f.hidden_field :lat, "data-name" => "lat" %>
+    <%= f.hidden_field :lng, "data-name" => "lng" %>
+    <p>
+      Record <%= f.select :record_name, [["Pub", :pub], ["Hospital", :hospital]] %>
+    </p>
+    <p>
+      Distance <%= f.number_field :distance %> km
+    </p>
+    <p>
+      <%= f.button "Choose point", class: "choose-point btn btn-primary", type: :button %>
+    </p>
+  <% end %>
+</div>
+
+<div class="nearby-places-results">
+
+</div>
+
+<script type="text/javascript">
+  google.maps.event.addDomListener(window, 'load', function () {
+    Cartograph.createMap();
+    Cartograph.nearby_places = new Cartograph.NearbyPlaces($('#new_nearby_places'), $(".nearby-places-results"));
+  });
+</script>

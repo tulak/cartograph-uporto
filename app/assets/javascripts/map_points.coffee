@@ -1,10 +1,16 @@
-class Cartograph.MapPolygons
+class Cartograph.MapPoints
   constructor: (links) ->
     @links = links
     @objects = {}
     Cartograph.createMap()
     @links.each (index, link) =>
       $(link).change => @render($(link))
+
+  bounds: ->
+    bounds = new google.maps.LatLngBounds()
+    $.each @objects, (_, o) ->
+      bounds.extend(o.latLng)
+    bounds
 
   renderAll: ->
     @links.each (_, link) => @render($(link))
@@ -23,15 +29,21 @@ class Cartograph.MapPolygons
       object.hide()
       link.attr("checked", false)
 
+
+  destroy: ->
+    $.each @objects, (_, object) ->
+      object.destroy()
+
   render: (link)=>
     object = @objects[link.attr("id")]
     if object == undefined
-      object = new Cartograph.MapPolygon(link.attr("id"), link.data("title"), link.data("polygons"), link.data("party"))
+      object = new Cartograph.MapPoint(link.attr("id"), link.data("title"), link.data("lat"), link.data("lng"))
       @objects[object.id] = object
 
     if link[0].checked
       object.show()
-      object.focus()
+      Cartograph.map.setCenter(object.pos())
+      Cartograph.map.setZoom(12)
     else
       object.hide()
 

@@ -4,7 +4,7 @@ class Cartograph.MapPoint
     @title = title
     @lat = lat
     @lng = lng
-#    @id, @title, @lat, @lng = id, title, lat, lng
+    @latLng = new google.maps.LatLng(@lat, @lng)
 
   pos: ->
     { lat: @lat, lng: @lng}
@@ -15,9 +15,11 @@ class Cartograph.MapPoint
   hide: ->
     @render().setVisible(false)
 
+  destroy: ->
+    @marker.setMap(null)
+
   render: ->
     @marker ||= new google.maps.Marker
       position: @pos()
       map: Cartograph.map
       title: @title
-      animation: google.maps.Animation.DROP,

@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  get 'main/hospitals', as: :hospitals
-  get 'main/municipalities', as: :municipalities
-  get 'main/pubs', as: :pubs
+  get 'political_map' => "main#political_map", as: :political_map
+  get 'nearby_places' => "main#nearby_places", as: :nearby_places
+  get 'hospitals' => "main#hospitals", as: :hospitals
+  get 'municipalities' => "main#municipalities", as: :municipalities
+  get 'pubs' => "main#pubs", as: :pubs
+
+  root "main#pubs"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
